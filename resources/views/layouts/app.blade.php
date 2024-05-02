@@ -13,7 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+
     {{-- <link rel="stylesheet" href="{{asset('all.min.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -21,6 +21,16 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <style>
+        .note-group-select-from-files {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body class="sidebar-mini layoud-fixed" style="height: auto;">
@@ -193,7 +203,7 @@
                                 </ul>
                             </li> --}}
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/categorias') }}" class="nav-link {{ (request()->is('categorias*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Categorias
@@ -201,7 +211,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/tags') }}" class="nav-link {{ (request()->is('tags*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-hashtag"></i>
                                 <p>
                                     Tags
@@ -209,7 +219,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/posts') }}" class="nav-link {{ (request()->is('posts*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Post
@@ -217,7 +227,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/comentarios') }}" class="nav-link {{ (request()->is('comentarios*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-comments"></i>
                                 <p>
                                     Comentarios
@@ -225,7 +235,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/usuarios') }}" class="nav-link {{ (request()->is('usuarios*')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Usuarios
@@ -260,17 +270,12 @@
     </div>
 
 
-
-    <script src="plugins/jquery/jquery.min.js"></script>
-
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="dist/js/adminlte.min.js?v=3.2.0"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js" style=""></script>
+
+
+    @yield('scripts')
 </body>
 
 </html>
