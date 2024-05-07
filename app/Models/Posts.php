@@ -33,7 +33,8 @@ class Posts extends Model
     //obtener imagenes
     public function getImagenUrl(){
         if($this->imagen && $this->imagen != 'default.png' && $this->imagen != null){
-            return asset('imagenes/posts/' . $this->imagen);
+            return asset('/imagenes/posts/'.$this->imagen);
+            //return public_path().'/imagenes/posts/'.$this->imagen;
         } else {
             return asset('default.png');
         }

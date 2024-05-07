@@ -62,6 +62,7 @@
                                     @foreach ($tags as $ta)
                                         <option value="{{ $ta->nombre }}" @if(old('tags') && in_array($ta->nombre, old('tags'))) selected @endif >{{ $ta->nombre }}</option>
                                     @endforeach
+
                                 </select>
                                 @error('tags') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>

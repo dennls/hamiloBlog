@@ -43,7 +43,7 @@ class PostsController extends Controller
             'resumen' => 'required|string|min:5|max:350',
             'contenido' => 'required|string|min:5',
             'estado' => 'nullable',
-            'tags' => 'nullable',
+            'tags' => 'required',
             'fecha_publicacion' => 'required'
         ]);
 
@@ -159,6 +159,24 @@ class PostsController extends Controller
             return redirect('/posts')->with('success', 'Estado actualizado correctamente!');
         } else {
             return back()->with('error', 'El estado no fué actualizado!');
+        }
+    }
+    public function destroy($id)
+    {
+        $post = Posts::find($id);
+        // eliminar la imagen anterior
+        if($post->imagen != 'default.png'){
+            if(file_exists(public_path().'/imagenes/posts/'.$post->imagen)){
+                unlink(public_path().'/imagenes/posts/'.$post->imagen);
+            }
+        }
+        // eliminar los comentarios
+        $post->comentarios()->delete();
+
+        if ($post->delete()) {
+            return redirect('/posts')->with('success', 'Registro eliminado correctamente!');
+        } else {
+            return back()->with('error', 'El registro no fué eliminado!');
         }
     }
 }

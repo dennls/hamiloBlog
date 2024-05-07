@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Tags</h1>
+                <h1 class="m-0">Usuarios</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                    <li class="breadcrumb-item active">Tags</li>
+                    <li class="breadcrumb-item active">Usuarios</li>
                 </ol>
             </div>
         </div>
@@ -42,7 +42,10 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->created_at }}</td>
+                                    <td>
+                                        {{ $item->created_at }}
+                                        <br> <small>{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans(now()) }}</small>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
