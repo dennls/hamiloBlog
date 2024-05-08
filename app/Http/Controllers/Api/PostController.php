@@ -147,15 +147,33 @@ class PostController extends Controller
         $this->validate($request, [
             'nombre' => 'required|string|min:2|max:200',
             'email' => 'required|email',
+            'telefono' => 'required|numeric|digits_between:6,8',
             'asunto' => 'required|string|min:5|max:200',
             'mensaje' => 'required|string|min:10|max:500',
         ]);
         $contacto = new Contactos();
         $contacto->nombre = $request->nombre;
         $contacto->email = $request->email;
+        $contacto->telefono = $request->telefono;
         $contacto->asunto = $request->asunto;
         $contacto->mensaje =  $request->mensaje;
         if($contacto ->save()){
+            //verivicar si es telefono o celular
+            if (strlen($contacto->telefono)==8) {
+                $twilio_sid = env('TWILIO_SID');
+                $twilio_token = env('TWILIO_TOKEN');
+                $twilio_desde = env('TWILO_FROM');
+
+                $cliente_twilio = new Client($twilio_sid, $twilio_token);
+                $numeroCliente = '+591'.$contacto->telefono;
+                $mensajeTwilio = 'Gracias por contactarte con nosotros.Te responderemos a la brevedad posible';
+
+                $cliente_twilio->messages->create(
+                    $numeroCliente, [
+                        'from' => $twilio_desde,
+                        'body' => $mensajeTwilio
+                    ]);
+            }
             return response()->json(['mensaje' => 'Contacto registrado', 'datos' => $contacto]);
         }else{
             return response()->json(['mensaje' => 'El contacto no fue registrado']);

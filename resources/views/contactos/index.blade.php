@@ -34,6 +34,7 @@
                                 <th>ID</th>
                                 <th>NOMBRE</th>
                                 <th>CORREO</th>
+                                <th>TELEFONO</th>
                                 <th>ASUNTO</th>
                                 <th>MENSAJE</th>
                             </tr>
@@ -44,6 +45,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->nombre }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>{{ $item->telefono }}</td>
                                     <td>{{ $item->asunto }}</td>
                                     <td>{{ $item->mensaje }}</td>
                                 </tr>
