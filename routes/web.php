@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\ContactosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ComentariosController;
 
@@ -66,4 +67,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     //usuarios
     Route::get('/usuarios', [App\Http\Controllers\UsuariosController::class, 'index']);
+    Route::get('/contactos', [App\Http\Controllers\ContactosController::class, 'index']);
 });

@@ -15,6 +15,5 @@ class Contactos extends Model
         'email',
         'asunto',
         'mensaje',
-        'usuario_id',
     ];
 }

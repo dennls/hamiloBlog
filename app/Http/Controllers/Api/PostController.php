@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Posts;
-use App\Models\Comentarios;
-use App\Models\Categorias;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Posts;
+use Twilio\Rest\Client;
+use App\Models\Categorias;
+use App\Models\Comentarios;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Contactos;
 
 class PostController extends Controller
 {
@@ -140,5 +142,43 @@ class PostController extends Controller
         }else{
             return response()->json(['mensaje' => 'El comentario no fue registrado']);
         }
+    }
+    public function contacto(Request $request){
+        $this->validate($request, [
+            'nombre' => 'required|string|min:2|max:200',
+            'email' => 'required|email',
+            'asunto' => 'required|string|min:5|max:200',
+            'mensaje' => 'required|string|min:10|max:500',
+        ]);
+        $contacto = new Contactos();
+        $contacto->nombre = $request->nombre;
+        $contacto->email = $request->email;
+        $contacto->asunto = $request->asunto;
+        $contacto->mensaje =  $request->mensaje;
+        if($contacto ->save()){
+            return response()->json(['mensaje' => 'Contacto registrado', 'datos' => $contacto]);
+        }else{
+            return response()->json(['mensaje' => 'El contacto no fue registrado']);
+        }
+    }
+
+    //enviar sms
+    public function enviarSMS($numero){
+        $sid = env('TWILIO_SID');
+        $token = env('TWILIO_TOKEN');
+        $desde = env('TWILO_FROM');
+
+        $a = '+591'.$numero;
+        $mensaje = 'Hola, gracias por contactarte con nosotros.Te responderemos a la brevedad posible';
+
+        $clientetwilio = new Client($sid, $token);
+        $mensajeEnviado = $clientetwilio->messages->create(
+            $a, [
+                'from' => $desde,
+                'body' => $mensaje
+            ]
+        );
+        return response()->json(['mensaje'=>'Mensaje enviado', 'datos' => $mensajeEnviado]);
+
     }
 }

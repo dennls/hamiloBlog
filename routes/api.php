@@ -28,9 +28,13 @@ Route::get('/posts/{id}', [PostController::class, 'show']);
 Route::get('/posts/{id}/{antsig}', [PostController::class, 'siguiente']);
 Route::post('/resultados', [PostController::class, 'filtrado']);
 Route::get('/categorias', [PostController::class, 'categorias']);
+Route::post('/contactos', [PostController::class, 'contacto']);
+//mensajes twilio
+Route::get('/sms/{numero}', [PostController::class, 'enviarSMS']);
 
 Route::group(["middleware" => "auth:sanctum"], function () {
     Route::post('/comentarios', [PostController::class, 'comentario']);
+
 });
 
 

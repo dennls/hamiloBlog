@@ -242,6 +242,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/contactos') }}" class="nav-link {{ (request()->is('contactos*')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Contactos
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
